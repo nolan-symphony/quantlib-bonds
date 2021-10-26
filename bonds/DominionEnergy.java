@@ -29,7 +29,7 @@ public class DominionEnergy {
                 Date settlementDate = Date.todaysDate().add(settlementDays);
                 // Date settlementDate = new Date(22, Month.October, 2021);
                 // must be a business day
-                settlementDate = cal.adjust(settlementDate);
+                // settlementDate = cal.adjust(settlementDate);
 
                 Date todayDate = cal.advance(settlementDate, -settlementDays, TimeUnit.Days);
 
@@ -51,7 +51,7 @@ public class DominionEnergy {
                 FixedRateBond bond = new FixedRateBond(settlementDays, cal, faceAmount, issueDate, maturityDate, tenor,
                                 couponsVector, dayCount, BusinessDayConvention.ModifiedFollowing);
 
-                Double yield = 0.017068;
+                Double yield = 0.018087;
 
                 Double cleanPrice = bond.cleanPrice(yield, dayCount, Compounding.Compounded, Frequency.Semiannual,
                                 settlementDate);
@@ -80,7 +80,7 @@ public class DominionEnergy {
                                 BondFunctions.duration(bond, yieldRate, Duration.Type.Modified));
                 System.out.printf("yield Value Basis Point:  %.4f \n",
                                 BondFunctions.yieldValueBasisPoint(bond, yieldRate));
-                System.out.printf("YTM :  %.6f \n",
+                System.out.printf("YTM (price to yield) :  %.6f \n",
                                 bond.yield(cleanPrice, dayCount, Compounding.Compounded, Frequency.Semiannual));
 
         }

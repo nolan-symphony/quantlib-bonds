@@ -184,14 +184,14 @@ public class Bonds {
                 // or some kind of data feed
 
                 // deposits
-                QuoteHandle d1wQuoteHandle = new QuoteHandle(new SimpleQuote(0.043375));
+                QuoteHandle d1wQuoteHandle = new QuoteHandle(new SimpleQuote(-0.0056));
                 QuoteHandle d1mQuoteHandle = new QuoteHandle(new SimpleQuote(0.031875));
                 QuoteHandle d3mQuoteHandle = new QuoteHandle(new SimpleQuote(0.0320375));
                 QuoteHandle d6mQuoteHandle = new QuoteHandle(new SimpleQuote(0.03385));
                 QuoteHandle d9mQuoteHandle = new QuoteHandle(new SimpleQuote(0.0338125));
                 QuoteHandle d1yQuoteHandle = new QuoteHandle(new SimpleQuote(0.0335125));
                 // swaps
-                QuoteHandle s2yQuoteHandle = new QuoteHandle(new SimpleQuote(0.0295));
+                QuoteHandle s2yQuoteHandle = new QuoteHandle(new SimpleQuote(-0.0047));
                 QuoteHandle s3yQuoteHandle = new QuoteHandle(new SimpleQuote(0.0323));
                 QuoteHandle s5yQuoteHandle = new QuoteHandle(new SimpleQuote(0.0359));
                 QuoteHandle s10yQuoteHandle = new QuoteHandle(new SimpleQuote(0.0412));

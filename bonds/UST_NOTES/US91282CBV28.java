@@ -1,4 +1,4 @@
-package bonds;
+package bonds.UST_NOTES;
 
 import org.quantlib.ActualActual;
 import org.quantlib.BusinessDayConvention;
@@ -18,7 +18,7 @@ import org.quantlib.Settings;
 import org.quantlib.UnitedStates;
 import org.quantlib.Duration;
 
-public class GovBond {
+public class US91282CBV28 {
         public static void main(String[] args) throws Exception {
 
                 // MARKET DATA
@@ -26,7 +26,7 @@ public class GovBond {
 
                 Calendar cal = new UnitedStates(UnitedStates.Market.GovernmentBond);
                 int settlementDays = 1;
-                Date settlementDate = Date.todaysDate().add(settlementDays);
+                Date settlementDate = new Date(05, Month.August, 2021);
                 // Date settlementDate = new Date(22, Month.October, 2021);
                 // must be a business day
                 settlementDate = cal.adjust(settlementDate);
@@ -61,33 +61,37 @@ public class GovBond {
                 // new ActualActual(ActualActual.Convention.Bond),
                 // BusinessDayConvention.ModifiedFollowing,
                 // faceAmount, issueDate);
-                Double yield = 0.005954;
+                // Yield market
+                Double yield = 0.0033417;
 
                 Double cleanPrice = bond.cleanPrice(yield, dayCount, Compounding.Compounded, Frequency.Semiannual,
                                 settlementDate);
                 Double dirtyPrice = bond.dirtyPrice(yield, dayCount, Compounding.Compounded, Frequency.Semiannual,
                                 settlementDate);
 
-                System.out.printf("Clean Price : %.2f \n", cleanPrice);
-                System.out.printf("Dirty Price : %.2f \n", dirtyPrice);
+                InterestRate yieldRate = new InterestRate(yield, dayCount, Compounding.Compounded,
+                                Frequency.Semiannual);
+
+                System.out.printf("\n\n------------------------COMPARE-------------------------\n");
+                System.out.printf("Clean Price =>  Quantlib: %.6f | Sample: 100.109375\n", cleanPrice);
+                System.out.printf("Invoice Price =>  Quantlib: %.7f | Sample: 100.2241291\n", dirtyPrice);
+                System.out.printf("Accrued Days =>  Quantlib: %d | Sample: 112\n", BondFunctions.accruedDays(bond));
+                System.out.printf("Accrued Interest =>  Quantlib: %.7f | Sample: 0.1147541\n", bond.accruedAmount());
+                System.out.printf("Convexity =>  Quantlib: %.6f | Sample: 7.208437\n",
+                                BondFunctions.convexity(bond, yieldRate, settlementDate));
+                System.out.printf("Simple Duration =>  Quantlib: %.8f | Sample: 2.68010181\n",
+                                BondFunctions.duration(bond, yieldRate, Duration.Type.Simple));
+                System.out.printf("Modified duration =>  Quantlib: %.8f | Sample: 2.67563124\n",
+                                BondFunctions.duration(bond, yieldRate, Duration.Type.Modified));
+                System.out.printf("-------------------------------------------------------\n\n\n");
 
                 System.out.printf("Accrual start date:  %s \n", BondFunctions.accrualStartDate(bond).ISO());
                 System.out.printf("Accrual end date:  %s \n", BondFunctions.accrualEndDate(bond).ISO());
                 System.out.printf("Accrual period:  %.4f \n", BondFunctions.accrualPeriod(bond));
-                System.out.printf("Accrued Interest:  %.4f \n", bond.accruedAmount());
                 System.out.printf("Accrual Days:  %d \n", BondFunctions.accrualDays(bond));
-                System.out.printf("Accrued Days:  %d \n", BondFunctions.accruedDays(bond));
                 System.out.printf("Accrued period:  %.4f \n", BondFunctions.accruedPeriod(bond));
-
-                InterestRate yieldRate = new InterestRate(yield, dayCount, Compounding.Compounded,
-                                Frequency.Semiannual);
-                System.out.printf("convexity : %.4f \n", BondFunctions.convexity(bond, yieldRate, settlementDate));
                 System.out.printf("Basis point value:  %.4f \n", BondFunctions.basisPointValue(bond, yieldRate));
                 System.out.printf("bps:  %.4f \n", BondFunctions.bps(bond, yieldRate));
-                System.out.printf("Simple Duration:  %.3f \n",
-                                BondFunctions.duration(bond, yieldRate, Duration.Type.Simple));
-                System.out.printf("Modified duration:  %.3f \n",
-                                BondFunctions.duration(bond, yieldRate, Duration.Type.Modified));
                 System.out.printf("yield Value Basis Point:  %.4f \n",
                                 BondFunctions.yieldValueBasisPoint(bond, yieldRate));
                 System.out.printf("YTM :  %.6f \n",
