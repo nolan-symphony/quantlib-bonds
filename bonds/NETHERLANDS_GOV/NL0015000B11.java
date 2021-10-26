@@ -15,7 +15,6 @@ import org.quantlib.TimeUnit;
 import org.quantlib.BondFunctions;
 import org.quantlib.InterestRate;
 import org.quantlib.Settings;
-import org.quantlib.Thirty360;
 import org.quantlib.TARGET;
 import org.quantlib.ActualActual.Convention;
 import org.quantlib.Duration;
